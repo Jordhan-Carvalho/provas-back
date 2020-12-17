@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const testsController = require("./controllers/testsController");
-const termsController = require("./controllers/termsController");
+const testsController = require("./routers/testsController");
+const termsController = require("./routers/termsController");
 
 const app = express();
 
