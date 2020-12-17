@@ -3,15 +3,15 @@ const express = require("express");
 const cors = require("cors");
 
 const testsController = require("./controllers/testsController");
+const termsController = require("./controllers/termsController");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Tests routes
-app.post("/api/tests", testsController.postTest);
-app.get("/api/tests/:id", testsController.getTest);
+app.use("/api/tests", testsController);
+app.use("/api/terms", termsController);
 
 const port = process.env.PORT;
 
