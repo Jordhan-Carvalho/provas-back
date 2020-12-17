@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js",
-    "test": "npx jest -i"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "jest -i "
   },
   "keywords": [],
   "author": "",
