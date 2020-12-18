@@ -84,4 +84,5 @@ module.exports = {
   findTestByProfAndCat,
   findTestByClassAndCat,
   getClassesTestNumber,
+  getAllTests,
 };

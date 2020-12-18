@@ -3,7 +3,7 @@ const supertest = require("supertest");
 const app = require("../src/app");
 const db = require("../src/database/index");
 
-let id, profId, catId, classId;
+let id, profId, catId, classId, termId;
 
 afterAll(async () => {
   await db.query("DELETE FROM tests WHERE id = $1", [id]);
@@ -104,9 +104,20 @@ describe("GET /api/tests/professors/:id/categories/:id", () => {
   });
 });
 
-describe("GET /api/tests/classes", () => {
+describe("GET /api/terms", () => {
+  it("should return 200 with an array of terms and the number of classes", async () => {
+    const res = await supertest(app).get("/api/terms");
+    termId = res.body[0].id;
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toHaveProperty("id");
+    expect(res.body[0]).toHaveProperty("name");
+    expect(res.body[0]).toHaveProperty("count");
+  });
+});
+
+describe("GET /api/tests/terms/:id/classes", () => {
   it("should return 200 with an array of classes and the number of tests", async () => {
-    const res = await supertest(app).get(`/api/tests/classes`);
+    const res = await supertest(app).get(`/api/tests/terms/${termId}/classes`);
 
     classId = res.body[0].id;
 
@@ -145,13 +156,13 @@ describe("GET /api/tests/classes/:id/categories/:id", () => {
   });
 });
 
-describe("GET /api/terms", () => {
+describe("GET /api/tests/form-info", () => {
   it("should return 200 with an array of terms and the number of classes", async () => {
-    const res = await supertest(app).get("/api/terms");
+    const res = await supertest(app).get("/api/tests/form-info");
 
     expect(res.status).toBe(200);
-    expect(res.body[0]).toHaveProperty("id");
-    expect(res.body[0]).toHaveProperty("name");
-    expect(res.body[0]).toHaveProperty("count");
+    expect(res.body).toHaveProperty("professors");
+    expect(res.body).toHaveProperty("classes");
+    expect(res.body).toHaveProperty("categories");
   });
 });

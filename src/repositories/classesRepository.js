@@ -1,9 +1,7 @@
 const db = require("../database/index");
 
 async function findAll() {
-  const resp = await db.query(
-    "SELECT * FROM classes JOIN term ON term.id = classes.term_id"
-  );
+  const resp = await db.query("SELECT * FROM classes");
   return resp.rows;
 }
 

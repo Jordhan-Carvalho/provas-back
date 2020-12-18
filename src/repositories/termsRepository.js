@@ -7,4 +7,10 @@ async function findTermsWithClass() {
   return resp.rows;
 }
 
-module.exports = { findTermsWithClass };
+async function findCatsTermByTermId(termId) {
+  const query = `SELECT classes.id, classes.name, COUNT(*) FROM classes JOIN term ON classes.term_id = term.id WHERE classes.term_id = $1 GROUP BY classes.id`;
+  const res = await db.query(query, [termId]);
+  return res.rows;
+}
+
+module.exports = { findTermsWithClass, findCatsTermByTermId };
